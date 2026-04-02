@@ -22,23 +22,19 @@ class Validation():
         self.y_test = y_test
         self.results = []
         self.models = []
-        self.best_epoch= None
         self.params = params
         self.epochs = epochs
-        self.W = None
-        self.b = None
+        
         
     def fit(self):
         self.select_best_params_and_epochs()
         for i in range(self.cv):
             np.random.seed(i)
-            model = self.estimator(**copy.deepcopy(self.params),epochs=self.best_epoch,init_weights=False);
-            model.W = copy.deepcopy(self.W)
-            model.b = copy.deepcopy(self.b)
+            model = self.estimator(**copy.deepcopy(self.params),epochs=self.best_epoch)
             model.fit(self.X_train,self.y_train)
+            self.models.append(model)
             y_pred = model.predict(self.X_test)
             self.results.append(accuracy(y_pred,self.y_test))
-            self.models.append(model)
         return max(self.results),self.models[np.argmax(self.results)]
 
     def select_best_params_and_epochs(self):
@@ -51,15 +47,16 @@ class Validation():
         Y_train = one_hot_encoder(self.y_train,model.labels)
         Y_val = one_hot_encoder(self.y_val,model.labels)
         
+        
         for j in range(self.epochs):
             A = model._forward(self.X_train)
+            y_train_pred=model._predict(self.X_train)
+            model.loss.append(model._calculate_loss(Y_train,y_train_pred))
 
             y_val_pred = model._predict(self.X_val)
             v_loss = model._calculate_loss(Y_val,y_val_pred)
             
             if v_loss < loss:
-                self.W = copy.deepcopy(model.W)
-                self.b = copy.deepcopy(model.b)
                 self.best_epoch = j
                 loss = v_loss
                 
@@ -180,6 +177,9 @@ class Validation():
         ax.axhline(y=acc, color="red", linestyle="--",
                    label=f"Overall Vaildation Accuracy: {acc:.4f}")
         ax.legend()
+        
+    
+        
         
     
         
