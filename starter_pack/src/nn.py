@@ -8,6 +8,7 @@ from utils import *
 
 
 
+
 class NeuralNetwork():
     def __init__(self,size=[32],lamda = 1e-4,batch_size=64,learning_rate = None, optimizer="sgd",epochs = 200,activation_functions = (np.tanh,softmax),init_weights=True):
         self.size = size
@@ -177,7 +178,7 @@ class NeuralNetwork():
     
     def predict(self, X):
         result = self._predict(X)
-        return np.argmax(result,axis = 1)
+        return self.labels[np.argmax(result,axis=1)]
         
     def plot_decision_boundary(self, X, y, ax=None):
         if ax is None:
@@ -215,9 +216,8 @@ class NeuralNetwork():
             fig, ax = plt.subplots(1,1,figsize=(8,6))
         ax.set_title(f"{self.__class__.__name__}\nOptimizer:{self.optimizer.capitalize()}; Hidden Layer Size:{self.size};\nLearning rate:{self.learning_rate}")
         ax.plot(range(len(self.loss)),self.loss)
-        ax.set_ylabel(f"Training Log Loss")
+        ax.set_ylabel(f"Training Loss")
         ax.set_xlabel("Epochs")
         ax.set_yticks(np.linspace(min(self.loss), max(self.loss), 10))
         ax.grid()
-        
         
