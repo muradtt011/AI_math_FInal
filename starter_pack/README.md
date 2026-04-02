@@ -1,27 +1,27 @@
-
-
 ## Assignment Summary
-This project investigates a central machine learning question: when does a one-hidden-layer nonlinear classifier genuinely improve upon a linear decision rule, and when is additional model complexity unnecessary?
 
-The implementation compares softmax regression as a linear baseline with a one-hidden-layer neural network across three datasets with different geometric structures:
+This project explores a fundamental question in machine learning: under what conditions does a one-hidden-layer nonlinear classifier meaningfully outperform a linear decision rule, and when is additional model complexity unnecessary?
 
--Linear Gaussian dataset, which is approximately linearly separable,
--Moons dataset, which is inherently nonlinear,
--Digits dataset, which contains both linear and nonlinear structure.
+The implementation compares softmax regression as a linear baseline with a one-hidden-layer neural network across three datasets with distinct geometric properties:
 
-The program includes:
+-A linear Gaussian dataset, which is approximately linearly separable,
+-A moons dataset, which exhibits inherently nonlinear structure,
+-A digits dataset, which contains a combination of linear and nonlinear patterns.
 
-=Core experiments comparing both models on all required datasets,
--Capacity ablation on the moons dataset using hidden widths {2, 8, 32},
+The project includes:
+
+-Core experiments evaluating both models across all required datasets,
+-Capacity ablation on the moons dataset using hidden layer widths {2, 8, 32},
 -Optimizer comparison on the digits dataset using SGD, Momentum, and Adam,
--Failure-case analysis to study overfitting and class imbalance,
--Repeated-seed evaluation for robustness and stability,
--PCA/SVD-based input geometry analysis on the digits dataset,
--Implementation sanity checks such as gradient checking, probability validation, and tiny-subset training behavior.
+-Failure-case analysis to examine overfitting and class imbalance,
+-Repeated-seed evaluation to assess robustness and stability,
+-PCA/SVD-based analysis to study input geometry in the digits dataset,
+-Implementation sanity checks, including gradient verification, probability validation, and training behavior on small subsets.
 
-This setup is designed to show where linear structure is sufficient, where nonlinearity provides meaningful benefits, and how model complexity, optimization, and data geometry jointly affect performance.
+This experimental framework is designed to identify when linear structure is sufficient, when nonlinear representations provide clear advantages, and how model capacity, optimization strategies, and data geometry together influence overall performance.
 
 ## Requirements
+
 Python 3.x
 The following Python libraries:
 numpy
@@ -31,30 +31,30 @@ scipy
 The project directory should contain the following structure:
 starter_pack/
 ├── data/
-│   ├── digits_data.npz
-│   ├── digits_split_indices.npz
-│   ├── linear_gaussian.npz
-│   └── moons.npz
+│ ├── digits_data.npz
+│ ├── digits_split_indices.npz
+│ ├── linear_gaussian.npz
+│ └── moons.npz
 │
-├── figures/                 # Generated plots from experiments
+├── figures/ # Generated plots from experiments
 │
-├── results/                 #
-│   
+├── results/ #
+│  
 │
 ├── src/
-│   ├── main.py
-│   ├── nn.py
-│   ├── softmax_classfication.py
-│   ├── validation.py
-│   ├── utils.py
-│   └── pca.py
+│ ├── main.py
+│ ├── nn.py
+│ ├── softmax_classfication.py
+│ ├── validation.py
+│ ├── utils.py
+│ └── pca.py
 │
 ├── report/
-│   ├── FinalReport.pdf
-│          
+│ ├── FinalReport.pdf
+│  
 │
 ├── slides/
-│   └── FinalSlides.pptx
+│ └── FinalSlides.pptx
 │
 ├── README.md
 
@@ -104,7 +104,7 @@ This runs the PCA/SVD and input geometry analysis, including:
 This runs the repeated-seed statistics experiments.
 
 Multiple experiment groups can also be executed together, for example:
-    python starter_pack/src/main.py --cpad
+python starter_pack/src/main.py --cpad
 
 The generated figures are saved automatically into the starter_pack/figures/ directory.
 
@@ -131,7 +131,6 @@ README.md: Project description, setup instructions, and execution guide.
 
 -FinalSlides.pptx : Technical pitch summarizing the project question, methods, results, and insights.
 
-
 ## Configuration Options
 
 You can modify the settings inside the source files, especially in main.py, nn.py, and softmax_classfication.py, to control the behavior of the experiments.
@@ -151,18 +150,24 @@ These options make it possible to test different learning conditions, observe ch
 
 ## Debugging & Tips
 
--If the program fails at startup, first check for syntax errors or filename mismatches. For example, ensure that softmax_classfication.py exists with the exact same spelling as used in the import statement.
+-If the program fails during startup, begin by checking for syntax issues or mismatched filenames. For instance, verify that softmax_classfication.py exists and matches the exact spelling used in the import.
 
--If a FileNotFoundError occurs, confirm that all .npz dataset files are present inside starter_pack/data/ and that the script is being run from the project root directory.
+-If you encounter a FileNotFoundError, ensure that all required .npz dataset files are located in starter_pack/data/ and that you are executing the script from the project’s root directory.
 
--If figures are not being saved, make sure the starter_pack/figures/ folder exists and that the program has permission to write into it.
+-If figures are not being saved, confirm that the starter_pack/figures/ directory exists and that the program has write permissions for that folder.
 
--If plots do not display correctly, the selected matplotlib backend (TkAgg) may not be supported in your environment. In that case, switch to a compatible backend or run the script in a local Python environment with GUI support.
+-If plots are not displaying properly, the chosen matplotlib backend (TkAgg) may not be supported in your environment. Consider switching to a compatible backend or running the script in a local setup with GUI support.
 
--If training appears unstable, check the learning rate and optimizer settings. Very large learning rates may lead to poor convergence or numerical instability.
+-If the training process seems unstable, review the learning rate and optimizer configuration. Excessively high learning rates can cause poor convergence or numerical issues.
 
--If repeated-seed or validation results look identical across runs, inspect how seeds are set and whether initialization is being reset as intended.
+-If repeated runs (e.g., with different seeds or validation) yield identical results, check how random seeds are set and whether model initialization is properly reset each time.
 
--If model performance seems unexpectedly weak, verify that data splits, normalization, and training parameters are consistent with the intended protocol.
+-If model performance is lower than expected, double-check data splits, normalization steps, and training parameters to ensure they align with the intended setup.
 
-For presentation and report preparation, use the saved figures from starter_pack/figures/ rather than screenshots taken manually, since saved figures are cleaner and more consistent.
+-For reports and presentations, always use the figures saved in starter_pack/figures/ instead of manually taken screenshots, as they provide better clarity and consistency.
+
+## Contributions
+
+Murad Taghizada-33.33%
+Yasin Veliyev-33.33%
+Nicat Alaskarli-33.33%
