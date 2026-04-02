@@ -71,7 +71,7 @@ class SoftMaxClassification:
         
     def predict(self,X_val):
         A = self._predict(X_val)
-        return np.argmax(A,axis=1)
+        return self.labels[np.argmax(A,axis=1)]
 
     def _calculate_loss(self,Y,y_predict):
         return -np.mean(np.sum(Y*np.log(y_predict + 1e-9),axis=1)) + self._l2()
@@ -134,11 +134,10 @@ class SoftMaxClassification:
         
         ax.set_title(f"{self.__class__.__name__}\nOptimizer:{self.optimizer.capitalize()};\nLearning rate:{self.learning_rate}")
         ax.plot(range(len(self.loss)),self.loss)
-        ax.set_ylabel("Log Loss")
+        ax.set_ylabel("Training Loss")
         ax.set_yticks(np.linspace(min(self.loss), max(self.loss), 10))
-        ax.set_xlabel("Iteration")
+        ax.set_xlabel("Epochs")
         ax.grid()
-        
         
         
         
